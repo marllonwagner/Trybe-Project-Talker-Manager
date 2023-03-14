@@ -21,7 +21,7 @@ async function getFunc(requisition, response) {
     const talker = talkers.find((movie) => movie.id === Number(id));
 
     if (!talker) {
-      return response.status(404).json({ message: "Pessoa palestrante não encontrada" });
+      return response.status(404).json({ message: 'Pessoa palestrante não encontrada' });
     }
 
     return response.json(talker);
