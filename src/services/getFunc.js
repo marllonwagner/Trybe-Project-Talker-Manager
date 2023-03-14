@@ -1,5 +1,7 @@
-const path = require('path')
-const fs = require('fs').promises
+const path = require('path');
+
+const fs = require('fs').promises;
+
 const talkersPath = path.resolve(__dirname, '../talker.json');
 
 const readFile = async () => {
@@ -10,7 +12,6 @@ const readFile = async () => {
     console.error(`Arquivo não pôde ser lido: ${error}`);
   }
 };
-
 
 async function getFunc(requisition, response) {
   const { id } = requisition.params;

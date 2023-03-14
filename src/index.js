@@ -1,7 +1,6 @@
 const express = require('express');
 
-const getFunc = require('./services/getFunc.js')
-
+const getFunc = require('./services/getFunc');
 
 const app = express();
 app.use(express.json());
@@ -20,4 +19,8 @@ app.listen(PORT, () => {
 
 app.get('/talker/:id?', async (req, res) => {
   await getFunc(req, res)
- });
+});
+
+app.post('/login', async (req, res) => {
+  await postFunc(req, res)
+});
