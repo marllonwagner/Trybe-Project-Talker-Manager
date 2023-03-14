@@ -13,7 +13,7 @@ const readFile = async () => {
   }
 };
 
-async function getFunc(requisition, response) {
+async function getTalkerFunc(requisition, response) {
   const { id } = requisition.params;
   const talkers = await readFile();
 
@@ -34,4 +34,4 @@ async function getFunc(requisition, response) {
   response.status(200).json(talkers);
 }
 
-module.exports = getFunc;
+module.exports = getTalkerFunc;

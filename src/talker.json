@@ -43,5 +43,40 @@
       "watchedAt": "29/10/2020",
       "rate": 5
     }
+  },
+  {
+    "token": "yh3MOH14-vV65WXK",
+    "email": "email@email.com",
+    "password": "123456"
+  },
+  {
+    "token": "b67RZZx8CoZQJvLx",
+    "email": "deferiascomigo@gmail.com",
+    "password": "12345678"
+  },
+  {
+    "token": "X7FC5sdmUXi9m0Ce",
+    "email": "deferiascomigo@gmail.com",
+    "password": "12345678"
+  },
+  {
+    "token": "kwuKXCxVIOqNBIKa",
+    "email": "deferiascomigo@gmail.com",
+    "password": "12345678"
+  },
+  {
+    "token": "JbOotsKrmxjcxG6G",
+    "email": "deferiascomigo@gmail.com",
+    "password": "12345678"
+  },
+  {
+    "token": "0QNiIDB2pHhAmn3P",
+    "email": "deferiascomigo@gmail.com",
+    "password": "12345678"
+  },
+  {
+    "token": "EJbXB7L1uhY9Rcj6",
+    "email": "deferiascomigo@gmail.com",
+    "password": "12345678"
   }
 ]
