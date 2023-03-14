@@ -18,9 +18,5 @@ app.listen(PORT, () => {
 });
 
 app.get('/talker/:id?', async (req, res) => {
-  await getFunc(req, res)
-});
-
-app.post('/login', async (req, res) => {
-  await postFunc(req, res)
+  await getFunc(req, res);
 });

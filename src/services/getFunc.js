@@ -15,7 +15,7 @@ const readFile = async () => {
 
 async function getFunc(requisition, response) {
   const { id } = requisition.params;
-  const talkers = await readFile(talkersPath);
+  const talkers = await readFile();
 
   if (id) {
     const talker = talkers.find((movie) => movie.id === Number(id));
