@@ -2,11 +2,13 @@ const express = require('express');
 
 const getTalkerFunc = require('./services/getFunc');
 
-const postLoginFunc = require('./services/postFunc');
+const { postLoginFunc, postTalkerFunc } = require('./services/postFunc');
 
 const { isValidEmail } = require('./middlewares/validateEmail');
 
 const { isValidPass } = require('./middlewares/validatePassword');
+
+const isValidToken = require('./middlewares/validateToken');
 
 const app = express();
 app.use(express.json());
@@ -25,6 +27,10 @@ app.get('/talker/:id?', async (req, res) => {
 
 app.post('/login', isValidEmail, isValidPass, async (req, res) => {
   await postLoginFunc(req, res);
+});
+
+app.post('/talker', isValidToken, async (req, res) => {
+  await postTalkerFunc(req, res);
 });
 
 app.listen(PORT, () => {
