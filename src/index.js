@@ -22,6 +22,8 @@ const validWatched = require('./middlewares/validateWatched');
 
 const putTalkerFunc = require('./services/putFunc');
 
+const delTalkerFunc = require('./services/delFunc');
+
 const app = express();
 app.use(express.json());
 
@@ -49,6 +51,10 @@ isAgeValid, isTalkValid, validWatched, validRate, async (req, res) => {
 app.put('/talker/:id', isValidToken, isNameValid, 
 isAgeValid, isTalkValid, validWatched, validRate, async (req, res) => {
   await putTalkerFunc(req, res);
+});
+
+app.delete('/talker/:id', isValidToken, async (req, res) => {
+  await delTalkerFunc(req, res);
 });
 
 app.listen(PORT, () => {
