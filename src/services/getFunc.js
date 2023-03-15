@@ -34,4 +34,12 @@ async function getTalkerFunc(requisition, response) {
   response.status(200).json(talkers);
 }
 
-module.exports = getTalkerFunc;
+async function getTalkerSearchFunc(requisition, response) {
+const { q } = requisition.query;
+const talkers = await readFile();
+const searchResult = talkers.filter((t) => t.name.includes(q));
+return response.status(200).json(searchResult);
+}
+
+module.exports = { getTalkerFunc,
+  getTalkerSearchFunc };

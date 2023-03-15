@@ -1,6 +1,6 @@
 const express = require('express');
 
-const getTalkerFunc = require('./services/getFunc');
+const { getTalkerFunc, getTalkerSearchFunc } = require('./services/getFunc');
 
 const { postLoginFunc, postTalkerFunc } = require('./services/postFunc');
 
@@ -33,6 +33,10 @@ const PORT = process.env.PORT || '3001';
 // não remova esse endpoint, e para o avaliador funcionar
 app.get('/', (_request, response) => {
   response.status(HTTP_OK_STATUS).send();
+});
+
+app.get('/talker/search', isValidToken, async (req, res) => {
+  await getTalkerSearchFunc(req, res);
 });
 
 app.get('/talker/:id?', async (req, res) => {
