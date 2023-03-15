@@ -8,6 +8,8 @@ const { isValidEmail } = require('./middlewares/validateEmail');
 
 const { isValidPass } = require('./middlewares/validatePassword');
 
+const isNameValid = require('./middlewares/validateToken');
+
 const isValidToken = require('./middlewares/validateToken');
 
 const app = express();
@@ -29,7 +31,7 @@ app.post('/login', isValidEmail, isValidPass, async (req, res) => {
   await postLoginFunc(req, res);
 });
 
-app.post('/talker', isValidToken, async (req, res) => {
+app.post('/talker', isValidToken, isNameValid, async (req, res) => {
   await postTalkerFunc(req, res);
 });
 
