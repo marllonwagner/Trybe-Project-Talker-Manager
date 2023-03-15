@@ -20,6 +20,8 @@ const validRate = require('./middlewares/validateRate');
 
 const validWatched = require('./middlewares/validateWatched');
 
+const putTalkerFunc = require('./services/putFunc');
+
 const app = express();
 app.use(express.json());
 
@@ -42,6 +44,11 @@ app.post('/login', isValidEmail, isValidPass, async (req, res) => {
 app.post('/talker', isValidToken, isNameValid, 
 isAgeValid, isTalkValid, validWatched, validRate, async (req, res) => {
   await postTalkerFunc(req, res);
+});
+
+app.put('/talker/:id', isValidToken, isNameValid, 
+isAgeValid, isTalkValid, validWatched, validRate, async (req, res) => {
+  await putTalkerFunc(req, res);
 });
 
 app.listen(PORT, () => {
