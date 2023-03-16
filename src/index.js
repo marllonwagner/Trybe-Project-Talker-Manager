@@ -20,6 +20,12 @@ const validRate = require('./middlewares/validateRate');
 
 const validWatched = require('./middlewares/validateWatched');
 
+const isQ1paramValid = require('./middlewares/validateQ1param');
+
+const isQ2paramValid = require('./middlewares/validateQ2param');
+
+const isRateparamValid = require('./middlewares/validateRateparam');
+
 const putTalkerFunc = require('./services/putFunc');
 
 const delTalkerFunc = require('./services/delFunc');
@@ -27,16 +33,11 @@ const delTalkerFunc = require('./services/delFunc');
 const app = express();
 app.use(express.json());
 
-const HTTP_OK_STATUS = 200;
-const PORT = process.env.PORT || '3001';
-
 // não remova esse endpoint, e para o avaliador funcionar
-app.get('/', (_request, response) => {
-  response.status(HTTP_OK_STATUS).send();
-});
 
-app.get('/talker/search', isValidToken, async (req, res) => {
-  await getTalkerSearchFunc(req, res);
+app.get('/talker/search', isValidToken, isQ1paramValid,
+ isQ2paramValid, isRateparamValid, async (req, res) => {
+ await getTalkerSearchFunc(req, res);
 });
 
 app.get('/talker/:id?', async (req, res) => {
@@ -59,6 +60,13 @@ isAgeValid, isTalkValid, validWatched, validRate, async (req, res) => {
 
 app.delete('/talker/:id', isValidToken, async (req, res) => {
   await delTalkerFunc(req, res);
+});
+
+const HTTP_OK_STATUS = 200;
+const PORT = process.env.PORT || '3001';
+
+app.get('/', (_request, response) => {
+  response.status(HTTP_OK_STATUS).send();
 });
 
 app.listen(PORT, () => {

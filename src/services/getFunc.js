@@ -18,7 +18,7 @@ async function getTalkerFunc(requisition, response) {
   const talkers = await readFile();
 
   if (id) {
-    const talker = talkers.find((movie) => movie.id === Number(id));
+    const talker = talkers.find((t) => t.id === Number(id));
 
     if (!talker) {
       return response.status(404).json({ message: 'Pessoa palestrante não encontrada' });
@@ -35,11 +35,22 @@ async function getTalkerFunc(requisition, response) {
 }
 
 async function getTalkerSearchFunc(requisition, response) {
-const { q } = requisition.query;
+const { q, rate } = requisition.query;
 const talkers = await readFile();
-const searchResult = talkers.filter((t) => t.name.includes(q));
+const rateNum = Number(rate);
+const rateValidation = (Number.isInteger(rateNum) && (rateNum >= 1 && rateNum <= 5));
+
+let searchResult = talkers;
+if (q) searchResult = searchResult.filter((t) => t.name.includes(q));
+
+if (rateValidation) searchResult = searchResult.filter((t) => t.talk.rate === Number(rate));
+ else {
+  return response.status(400).json({
+ message: 'O campo "rate" deve ser um número inteiro entre 1 e 5' });
+}
 return response.status(200).json(searchResult);
 }
 
 module.exports = { getTalkerFunc,
-  getTalkerSearchFunc };
+  getTalkerSearchFunc,
+   };
