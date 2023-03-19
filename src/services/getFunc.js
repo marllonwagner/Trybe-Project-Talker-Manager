@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 const path = require('path');
 
 const fs = require('fs').promises;
@@ -35,22 +36,32 @@ async function getTalkerFunc(requisition, response) {
 }
 
 async function getTalkerSearchFunc(requisition, response) {
-const { q, rate } = requisition.query;
+const { rate, date, q } = requisition.query;
 const talkers = await readFile();
-const rateNum = Number(rate);
-const rateValidation = (Number.isInteger(rateNum) && (rateNum >= 1 && rateNum <= 5));
-
 let searchResult = talkers;
-if (q) searchResult = searchResult.filter((t) => t.name.includes(q));
 
-if (rateValidation) searchResult = searchResult.filter((t) => t.talk.rate === Number(rate));
- else {
-  return response.status(400).json({
- message: 'O campo "rate" deve ser um número inteiro entre 1 e 5' });
-}
+if (q) searchResult = searchResult.filter((t) => t.name.includes(q));
+if (rate) searchResult = searchResult.filter((t) => t.talk.rate === Number(rate));
+if (date) searchResult = searchResult.filter((t) => t.talk.watchedAt.includes(date));
+
 return response.status(200).json(searchResult);
 }
 
 module.exports = { getTalkerFunc,
   getTalkerSearchFunc,
    };
+
+// if (!rate && q && date) {
+//   searchResult = searchResult.filter((e) => e.name.includes(q))
+// .filter((te) => te.talk.watchedAt === date);
+
+// return response.status(200).json(searchResult);
+// }
+
+// searchResult = searchResult.filter((e) => e.name.includes(q))
+// .filter((te) => te.talk.watchedAt === date)
+// .filter((t) => t.talk.rate === Number(rate));
+
+// if (q) searchResult = searchResult.filter((t) => t.name.includes(q));
+// if (rate) searchResult = searchResult.filter((t) => t.talk.rate === Number(rate));
+// if (date) searchResult = searchResult.filter((t) => t.talk.watchedAt.includes(date));

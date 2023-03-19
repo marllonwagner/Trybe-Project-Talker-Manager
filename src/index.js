@@ -20,23 +20,33 @@ const validRate = require('./middlewares/validateRate');
 
 const validWatched = require('./middlewares/validateWatched');
 
+const isDateparamValid = require('./middlewares/validateDateParam');
+
+const isDate2paramValid = require('./middlewares/validateDate2Param');
+
 const isQ1paramValid = require('./middlewares/validateQ1param');
 
 const isQ2paramValid = require('./middlewares/validateQ2param');
 
 const isRateparamValid = require('./middlewares/validateRateparam');
 
+const isRate2paramValid = require('./middlewares/validateRate2param');
+
 const putTalkerFunc = require('./services/putFunc');
 
 const delTalkerFunc = require('./services/delFunc');
+
+const patchTalkerFunc = require('./services/patchFunc');
+
+const validRatePatch = require('./middlewares/validateRatePatch');
 
 const app = express();
 app.use(express.json());
 
 // não remova esse endpoint, e para o avaliador funcionar
 
-app.get('/talker/search', isValidToken, isQ1paramValid,
- isQ2paramValid, isRateparamValid, async (req, res) => {
+app.get('/talker/search', isValidToken, isDateparamValid, isDate2paramValid, isQ1paramValid,
+ isQ2paramValid, isRateparamValid, isRate2paramValid, async (req, res) => {
  await getTalkerSearchFunc(req, res);
 });
 
@@ -60,6 +70,10 @@ isAgeValid, isTalkValid, validWatched, validRate, async (req, res) => {
 
 app.delete('/talker/:id', isValidToken, async (req, res) => {
   await delTalkerFunc(req, res);
+});
+
+app.patch('/talker/rate/:id', isValidToken, validRatePatch, async (req, res) => {
+  await patchTalkerFunc(req, res);
 });
 
 const HTTP_OK_STATUS = 200;
