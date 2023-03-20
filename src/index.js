@@ -44,6 +44,8 @@ const validRatePatch = require('./middlewares/validateRatePatch');
 
 const isQRateparamValid = require('./middlewares/validateQRateParam');
 
+const getTalkerDbFunc = require('./services/getDbFunc');
+
 const app = express();
 app.use(express.json());
 
@@ -53,6 +55,10 @@ app.get('/talker/search', isValidToken, isQRateparamValid,
 isDateQparamValid, isDateparamValid, isDate2paramValid, isQ1paramValid,
  isQ2paramValid, isRateparamValid, isRate2paramValid, async (req, res) => {
  await getTalkerSearchFunc(req, res);
+});
+
+app.get('/talker/db', async (req, res) => {
+  await getTalkerDbFunc(req, res);
 });
 
 app.get('/talker/:id?', async (req, res) => {
