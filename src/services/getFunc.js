@@ -38,11 +38,15 @@ async function getTalkerFunc(requisition, response) {
 async function getTalkerSearchFunc(requisition, response) {
 const { rate, date, q } = requisition.query;
 const talkers = await readFile();
-let searchResult = talkers;
+// let searchResult = talkers;
 
-if (q) searchResult = searchResult.filter((t) => t.name.includes(q));
-if (rate) searchResult = searchResult.filter((t) => t.talk.rate === Number(rate));
-if (date) searchResult = searchResult.filter((t) => t.talk.watchedAt.includes(date));
+// if (q) searchResult = searchResult.filter((t) => t.name.includes(q));
+// if (date) searchResult = searchResult.filter((t) => t.talk.watchedAt.includes(date));
+// if (rate) searchResult = searchResult.filter((t) => t.talk.rate === Number(rate));
+
+const searchResult = talkers.filter((t) => t.name
+.includes(q)).filter((t) => t.talk.watchedAt
+.includes(date)).filter((t) => t.talk.rate === Number(rate));
 
 return response.status(200).json(searchResult);
 }
