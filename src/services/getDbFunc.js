@@ -1,4 +1,3 @@
-const camelize = require('camelize');
 const tasksDB = require('../db/tasksDb');
 
 async function getTalkerDbFunc(_req, res) {
